@@ -12,28 +12,26 @@ The dataset used in this project is obtained from Kaggle and contains informatio
 - **Country** – Country where the content was produced.
 - **Release Year** – The year when the content was added.
 - **Duration** – The length of the movie or show.
+- **Few other columns including show_id, description, date_added, rating, Genre(Listed in)
 
 ## 🎯 Objectives
-1. Identify the top 10 countries producing the most content.
-2. Find the longest movie available on Netflix.
-3. Analyze the content added in the last five years.
-4. Determine the average yearly content release by India and return the top 5 years with the highest average content released.
 
-## 🔍 SQL Queries Used
-We used **PostgreSQL** to perform the following analysis:
-- Splitting the `country` column (which has multiple values) to find the top 10 content-producing countries.
-- Using aggregate functions to calculate yearly content additions.
-- Extracting and converting time-related fields to analyze duration.
-- Filtering data for the last five years.
-- Calculating average content releases by India per year.
+1. Analyze the distribution of content types (movies vs TV shows).
+2. Identify the most common ratings for movies and TV shows.
+3. List and analyze content based on release years, countries, and durations.
+4. Explore and categorize content based on specific criteria and keywords.
 
-  Dataset
 
-The data for this project is sourced from the Kaggle dataset:
 
-Dataset Link: Movies Dataset
-Schema
 
+##Dataset
+
+- The data for this project is sourced from the Kaggle dataset:
+- Dataset Link: https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download
+
+##Schema
+
+```sql
 DROP TABLE IF EXISTS netflix;
 CREATE TABLE netflix
 (
@@ -50,19 +48,21 @@ CREATE TABLE netflix
     listed_in    VARCHAR(250),
     description  VARCHAR(550)
 );
-Business Problems and Solutions
+```
+##Business Problems and Solutions
 
-1. Count the Number of Movies vs TV Shows
-
+#1. Count the Number of Movies vs TV Shows
+```sql
 SELECT 
     type,
     COUNT(*)
 FROM netflix
 GROUP BY 1;
-Objective: Determine the distribution of content types on Netflix.
+```
+- Objective: Determine the distribution of content types on Netflix.
 
-2. Find the Most Common Rating for Movies and TV Shows
-
+#2. Find the Most Common Rating for Movies and TV Shows
+```sql
 WITH RatingCounts AS (
     SELECT 
         type,
@@ -84,14 +84,16 @@ SELECT
     rating AS most_frequent_rating
 FROM RankedRatings
 WHERE rank = 1;
-Objective: Identify the most frequently occurring rating for each type of content.
+```
+- Objective: Identify the most frequently occurring rating for each type of content.
 
-3. List All Movies Released in a Specific Year (e.g., 2020)
-
+#3. List All Movies Released in a Specific Year (e.g., 2020)
+```sql
 SELECT * 
 FROM netflix
 WHERE release_year = 2020;
-Objective: Retrieve all movies released in a specific year.
+```
+- Objective: Retrieve all movies released in a specific year.
 
 4. Find the Top 5 Countries with the Most Content on Netflix
 
