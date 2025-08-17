@@ -160,6 +160,7 @@ ELSE 'Good'
 END AS new_category
 from netflix
 GROUP BY 2;
+#New Update
 
 
 
